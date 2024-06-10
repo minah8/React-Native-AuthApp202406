@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import AuthForm from './AuthForm';
 import FlatButton from '../ui/FlatButton';
+import { Colors } from '../../constants/styles';
 
-const AuthContent = () => {
-  const [isLogin, setIsLogin] = useState(false);
+const AuthContent = (onAuthenticate) => {
+  const [isLogin, setIsLogin] = useState(true);
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
@@ -41,13 +42,16 @@ const AuthContent = () => {
         password: !passwordIsValid,
         confirmPassword: !passwordIsValid || !passwordsAreEqual,
       });
+      return;
     }
 
     // 회원가입 or 로그인 처리
+
+    onAuthenticate({ email, password, name });
   };
 
   return (
-    <View>
+    <View style={styles.AuthContent}>
       <AuthForm
         isLogin={isLogin}
         onSubmit={submitHandler}
@@ -62,4 +66,19 @@ const AuthContent = () => {
   );
 };
 
-export default AuthContent;
+export default authContent;
+
+const styles = StyleSheet.create({
+  AuthContent: {
+    marginTop: 64,
+    marginHorizontal: 32,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: Colors.primary800,
+    elevation: 2,
+    shadowColor: 'black',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.35,
+    shadowRadius: 4,
+  },
+});

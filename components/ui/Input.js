@@ -12,7 +12,9 @@ const Input = ({
 }) => {
   return (
     <View style={styles.inputContainer}>
-      <Text style={isInvalid && styles.labelInvalid}>{label}</Text>
+      <Text style={[styles.label, isInvalid && styles.labelInvalid]}>
+        {label}
+      </Text>
       <TextInput
         style={[styles.input, isInvalid && styles.inputInvalid]} // 스타일 적용이 두개 이상이면 배열로 묶어서 전달.
         autoCapitalize='none'
@@ -30,6 +32,10 @@ export default Input;
 const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 8,
+  },
+  label: {
+    color: 'white',
+    marginBottom: 4,
   },
   labelInvalid: {
     color: Colors.error500,
