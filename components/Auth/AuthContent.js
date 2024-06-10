@@ -3,9 +3,10 @@ import { Alert, View } from 'react-native';
 import AuthForm from './AuthForm';
 import FlatButton from '../ui/FlatButton';
 import { Colors } from '../../constants/styles';
+import { useNavigation } from '@react-navigation/native';
 
-const AuthContent = (onAuthenticate) => {
-  const [isLogin, setIsLogin] = useState(true);
+const AuthContent = ({ onAuthenticate, isLogin }) => {
+  const navigation = useNavigation();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
@@ -50,6 +51,14 @@ const AuthContent = (onAuthenticate) => {
     onAuthenticate({ email, password, name });
   };
 
+  const switchAuthModeHandler = () => {
+    if (isLogin) {
+      navigation.replace('Signup');
+    } else {
+      navigation.replace('Login');
+    }
+  };
+
   return (
     <View style={styles.AuthContent}>
       <AuthForm
@@ -66,7 +75,7 @@ const AuthContent = (onAuthenticate) => {
   );
 };
 
-export default authContent;
+export default AuthContent;
 
 const styles = StyleSheet.create({
   AuthContent: {

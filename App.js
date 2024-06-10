@@ -8,6 +8,7 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import { useContext } from 'react';
 import { AuthContext } from './store/auth-context';
 import { StatusBar } from 'expo-status-bar';
+import IconButton from './components/ui/IconButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const AuthStack = () => {
 
 // 인증이 완료된 사용자가 보게 될 stack
 const AuthenticatedStack = () => {
+  const { logout } = useContext(AuthContext);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -39,7 +41,22 @@ const AuthenticatedStack = () => {
         contentStyle: { backgroundColor: Colors.primary100 },
       }}
     >
-      <Stack.Screen name='Welcome' component={WelcomeScreen} />
+      <Stack.Screen
+        name='Welcome'
+        component={WelcomeScreen}
+        options={{
+          headerRight: () => {
+            return (
+              <IconButton
+                icon='exit'
+                color='white'
+                size={30}
+                onPress={logout}
+              />
+            );
+          },
+        }}
+      />
     </Stack.Navigator>
   );
 };
